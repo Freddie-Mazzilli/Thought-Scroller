@@ -45,3 +45,16 @@ def create_user():
     db.session.commit()
     session['user_id'] = new_user.id
     return new_user.to_dict(), 201
+
+# Session Login/Logout
+
+@app.post('/login')
+def login():
+    json = request.json
+    user = User.query.filter(User.username == json["username"]).first()
+    if user and bcrypt.check_password_hash(user.password_hash, json["password"]):
+        session["user_id"] = user.id
+        return user.to_dict(), 201
+    
+    else:
+        return {"error": "Invalid username or password"}, 401
