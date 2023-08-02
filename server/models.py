@@ -53,6 +53,7 @@ class Post(db.Model, SerializerMixin):
     serialize_rules = ("-users",)
 
 class Comment(db.Model, SerializerMixin):
+    __tablename__ = "comments"
 
     # Fields
     id = db.Column(db.Integer, primary_key=True)
@@ -70,6 +71,7 @@ class Comment(db.Model, SerializerMixin):
     posts = association_proxy("users", "post", creator=lambda p: User(post=p))
 
 class Reply(db.Model, SerializerMixin):
+    __tablename__ = "replies"
     
     # Fields
     id = db.Column(db.Integer, primary_key=True)
