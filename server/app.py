@@ -86,5 +86,32 @@ class Users(Resource):
     
 api.add_resource(Users, '/users')
 
+class Posts(Resource):
+
+    def get(self):
+        posts = Post.query.all()
+        response_body = []
+        for post in posts:
+            response_body.append(post.to_dict())
+        return make_response(jsonify(response_body), 200)
+    
+    def post(self):
+        try:
+            data = request.get_json()
+            new_post = Post(
+                title = data.get('title'),
+                content = data.get('content'),
+                vote_count = data.get('vote_count'),
+                comment_count = data.get('comment_count')
+            )
+            db.session.add(new_post)
+            db.session.commit()
+            response_body = new_post.to_dict()
+            return make_response(jsonify(response_body), 200)
+        except ValueError:
+            response_body = {'errors': ['validation errors']}
+            return make_response(jsonify(response_body), 400)
+
+api.add_resource(Posts, '/posts')
 
         
