@@ -37,7 +37,6 @@ class Post(db.Model, SerializerMixin):
 
     # Fields
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
     title = db.Column(db.String, nullable=False)
     content = db.Column(db.String, nullable=False)
@@ -57,9 +56,7 @@ class Comment(db.Model, SerializerMixin):
 
     # Fields
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     post_id = db.Column(db.Integer, db.ForeignKey("posts.id"), nullable=False)
-    reply_id = db.Column(db.Integer, db.ForeignKey("replies.id"))
 
     content = db.Column(db.String, nullable=False)
     vote_count = db.Column(db.Integer, default=1)
@@ -75,7 +72,6 @@ class Reply(db.Model, SerializerMixin):
     
     # Fields
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     comment_id =db.Column(db.Integer, db.ForeignKey("comments.id"), nullable=False)
 
     content = db.Column(db.String, nullable=False)
