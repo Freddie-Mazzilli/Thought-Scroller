@@ -58,3 +58,15 @@ def login():
     
     else:
         return {"error": "Invalid username or password"}, 401
+    
+@app.get('/current_session')
+def check_session():
+    if logged_in():
+        return get_current_user().to_dict(), 200
+    else:
+        return {}, 401
+    
+@app.delete("/logout")
+def logout():
+    session["user_id"] = None
+    return {"message" : "Successfully logged out"}, 204
