@@ -21,7 +21,7 @@ class User(db.Model, SerializerMixin):
 
     username = db.Column(db.String(100), nullable=False, unique=True)
     email = db.Column(db.String(120), nullable=False, unique=True)
-    password = db.Column(db.String(120), nullable=False)
+    password_hash = db.Column(db.String(120), nullable=False)
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
 
     # Relationships
@@ -31,6 +31,16 @@ class User(db.Model, SerializerMixin):
 
     # Serializer
     serialize_rules = ('-posts', '-comments', 'replies')
+
+    # Login/Signup Data
+    def __repr__(self):
+        return f'`<User id="{self.id}" username="{self.username}"`>'
+    
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "username": self.username
+        }
 
 class Post(db.Model, SerializerMixin):
     __tablename__ = "posts"

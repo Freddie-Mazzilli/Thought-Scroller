@@ -27,3 +27,21 @@ bcrypt = Bcrypt(app)
 CORS(app)
 
 api = Api(app)
+
+def get_current_user():
+    return User.query.where(User.id == session.get("user_id")).first()
+
+def logged_in():
+    return bool(get_current_user())
+
+# User Signup 
+
+@app.post('/users')
+def create_user():
+    json = request.json
+    pw_hash = bcrypt.generate_password_hash(json['password']).decode('utf-8')
+    new_user = User(username=json['username'], password_hash=pw_hash)
+    db.session.add(new_user)
+    db.session.commit()
+    session['user_id'] = new_user.id
+    return new_user.to_dict(), 201
