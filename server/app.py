@@ -71,11 +71,20 @@ def logout():
     session["user_id"] = None
     return {"message" : "Successfully logged out"}, 204
 
-class User(Resource):
+class Users(Resource):
 
     def get(self):
         users = User.query.all()
         response_body = []
         for user in users:
-            response_body.append(user.to_dict())
+            relationship = {
+                'posts' : user.post.to_dict(),
+                'comments': user.comment.to_dict()
+            }
+            response_body.append(relationship)
         return make_response(jsonify(response_body), 200)
+    
+api.add_resource(Users, '/users')
+
+
+        
