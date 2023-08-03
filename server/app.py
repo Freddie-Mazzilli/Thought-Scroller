@@ -34,6 +34,19 @@ def get_current_user():
 def logged_in():
     return bool(get_current_user())
 
+class Users(Resource):
+
+    def get(self):
+        users = User.query.all()
+        response_body = []
+        for user in users:
+            relationship = {
+                'posts' : user.post.to_dict(),
+                'comments': user.comment.to_dict()
+            }
+            response_body.append(relationship)
+        return make_response(jsonify(response_body), 200)
+    
 # User Signup 
 
 @app.post('/users')
@@ -70,19 +83,6 @@ def check_session():
 def logout():
     session["user_id"] = None
     return {"message" : "Successfully logged out"}, 204
-
-class Users(Resource):
-
-    def get(self):
-        users = User.query.all()
-        response_body = []
-        for user in users:
-            relationship = {
-                'posts' : user.post.to_dict(),
-                'comments': user.comment.to_dict()
-            }
-            response_body.append(relationship)
-        return make_response(jsonify(response_body), 200)
     
 api.add_resource(Users, '/users')
 
@@ -113,5 +113,23 @@ class Posts(Resource):
             return make_response(jsonify(response_body), 400)
 
 api.add_resource(Posts, '/posts')
+
+class PostsById(Resource):
+
+    def get(self, id):
+        post = Post.query.filter(Post.id == id).first()
+        if not post:
+            response_body = {"error": "Post not found."}
+            return make_response(jsonify(response_body), 404)
+        response_body = post.to_dict()
+
+        comment_list = []
+        for comment in post.comments:
+            comment_dict = comment.to_dict()
+            comment_list.append(comment_dict)
+
+        return make_response(jsonify(response_body), 200)
+        
+
 
         
