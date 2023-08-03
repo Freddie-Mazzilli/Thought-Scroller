@@ -129,6 +129,23 @@ class PostsById(Resource):
             comment_list.append(comment_dict)
 
         return make_response(jsonify(response_body), 200)
+    
+    def patch(self, id):
+        post = Post.query.filter(Post.id == id).first()
+        if not post:
+            response_body ={"error": "Post not found."}
+            return make_response(jsonify(response_body), 404)
+        try:
+            data = request.get_json()
+            for key in data:
+                setattr(post, key, data.get(key))
+            db.session.commit()
+            return make_response(jsonify(post.to_dict()), 202)
+        except ValueError:
+            response_body = {'errors': ['Validation Errors']}
+            return make_response(jsonify(response_body), 400)
+        
+    
         
 
 
