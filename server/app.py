@@ -154,6 +154,17 @@ class PostsById(Resource):
         db.session.commit()
         response_body = {}
         return make_response(jsonify(response_body), 204)
+    
+api.add_resource(PostsById, '/posts/<int:id>')
+
+class Comments(Resource):
+
+    def get(self):
+        comments = Comment.query.all()
+        response_body = []
+        for comment in comments:
+            response_body.append(comment.to_dict())
+        return make_response(jsonify(response_body), 200)
         
 
 
