@@ -1,7 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
 from sqlalchemy_serializer import SerializerMixin
-from sqlalchemy.orm import validates
 from datetime import datetime
 
 metadata = MetaData(naming_convention={
@@ -54,8 +53,8 @@ class Post(db.Model, SerializerMixin):
     comment_count = db.Column(db.Integer, default=0)
 
     # Relationships 
-
-    users = db.relationship("User", back_populates="post", cascade="all, delete-orphan")
+    users = db.relationship("User", back_populates="posts", cascade="all, delete-orphan")
+    comments = db.relationship("Comment", back_populates="posts")
 
     # Serializer
     serialize_rules = ("-users",)
@@ -71,7 +70,8 @@ class Comment(db.Model, SerializerMixin):
     vote_count = db.Column(db.Integer, default=1)
     
     # Relationships 
-    users = db.relationship("User", back_populates="comment", cascade="all, delete-orphan")
+    users = db.relationship("User", back_populates="comments", cascade="all, delete-orphan")
+    posts = db.relationship("Post", back_populates="comments", cascade="all, delete-orphan")
     replies = db.relationship("Reply", back_populates="comments")
 
 class Reply(db.Model, SerializerMixin):
