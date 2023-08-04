@@ -2,7 +2,6 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.orm import validates
-from sqlalchemy.ext.associationproxy import association_proxy
 from datetime import datetime
 
 metadata = MetaData(naming_convention={
@@ -18,6 +17,7 @@ class User(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
     comment_id = db.Column(db.Integer, db.ForeignKey('comments.id'))
+    reply_id = db.Column(db.Integer, db.ForeignKey('replies.id'))
 
     username = db.Column(db.String(100), nullable=False, unique=True)
     email = db.Column(db.String(120), nullable=False, unique=True)
@@ -56,7 +56,6 @@ class Post(db.Model, SerializerMixin):
     # Relationships 
 
     users = db.relationship("User", back_populates="post", cascade="all, delete-orphan")
-    comments = association_proxy("users", "comment", creator=lambda c: User(comment=c))
 
     # Serializer
     serialize_rules = ("-users",)
@@ -73,16 +72,14 @@ class Comment(db.Model, SerializerMixin):
     
     # Relationships 
     users = db.relationship("User", back_populates="comment", cascade="all, delete-orphan")
-    reply = db.relationship("Reply", back_populates="comments")
-
-    posts = association_proxy("users", "post", creator=lambda p: User(post=p))
+    replies = db.relationship("Reply", back_populates="comments")
 
 class Reply(db.Model, SerializerMixin):
     __tablename__ = "replies"
     
     # Fields
     id = db.Column(db.Integer, primary_key=True)
-    comment_id =db.Column(db.Integer, db.ForeignKey("comments.id"), nullable=False)
+    comment_id = db.Column(db.Integer, db.ForeignKey("comments.id"), nullable=False)
 
     content = db.Column(db.String, nullable=False)
     vote_count = db.Column(db.Integer, default=1)
