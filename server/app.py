@@ -165,6 +165,26 @@ class Comments(Resource):
         for comment in comments:
             response_body.append(comment.to_dict())
         return make_response(jsonify(response_body), 200)
+    
+    def post(self):
+        try:
+            data = request.get_json()
+            new_comment = Comment(
+                post_id = data.get('post_id'),
+                content = data.get('content'),
+                vote_count = data.get('vote_count')
+            )
+            db.session.add(new_comment)
+            db.session.commit()
+            response_body = new_comment.to_dict()
+            return make_response(jsonify(response_body), 200)
+        except ValueError:
+            response_body = {'errors': ['Validation Errors']}
+            return make_response(jsonify(response_body), 400)
+        
+api.add_resource(Comments, '/comments')
+            
+
         
 
 
