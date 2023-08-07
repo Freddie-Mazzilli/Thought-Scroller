@@ -236,6 +236,23 @@ class Replies(Resource):
         for reply in replies:
             response_body.append(reply.to_dict())
         return make_response(jsonify(response_body), 200)
+    
+    def post(self):
+        try:
+            data = request.get_json()
+            new_reply = Reply(
+                content = data.get('content'),
+                vote_count = data.get('vote_count')
+            )
+            db.session.add(new_reply)
+            db.session.commit()
+            response_body = new_reply.to_dict()
+            return make_response(jsonify(response_body), 200)
+        except ValueError:
+            response_body = {'errors': ["Validation Errors"]}
+            return make_response(jsonify(response_body), 400)
+        
+api.add_resource(Replies, '/replies')
 
 
 
