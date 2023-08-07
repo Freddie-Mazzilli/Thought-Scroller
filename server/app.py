@@ -194,7 +194,32 @@ class CommentsById(Resource):
             return make_response(jsonify(response_body), 404)
         response_body = comment.to_dict()
 
+        reply_list = []
+        for reply in comment.replies:
+            reply_dict = reply.to_dict()
+            reply_list.append(reply_dict)
+
+        return make_response(jsonify(response_body), 200)
+    
+    def patch(self, id):
+        comment = Comment.query.filter(Comment.id == id).first()
+        if not comment:
+            response_body = {'error': "Comment no found."}
+            return make_response(jsonify(response_body), 404)
+        try:
+            data = request.get_json()
+            for key in data:
+                setattr(comment, key, data.get(key))
+            db.session.commit()
+            return make_response(jsonify(comment.to_dict()), 202)
+        except ValueError:
+            response_body = {"errors": ["Validation Errors"]}
+            return make_response(jsonify(response_body), 400)
         
+        
+
+
+
 
             
 
