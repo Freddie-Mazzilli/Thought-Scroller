@@ -271,6 +271,8 @@ class RepliesById(Resource)
             return make_response(jsonify(response_body), 404)
         response_body = reply.to_dict()
 
+        return make_response(jsonify(response_body), 200)
+
         
 
 
