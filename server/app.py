@@ -128,6 +128,10 @@ class PostsById(Resource):
         for comment in post.comments:
             comment_dict = comment.to_dict()
             comment_list.append(comment_dict)
+        
+        response_body.update({
+            "comments": comment_list
+        })
 
         return make_response(jsonify(response_body), 200)
     
@@ -199,6 +203,10 @@ class CommentsById(Resource):
             reply_dict = reply.to_dict()
             reply_list.append(reply_dict)
 
+        response_body.update({
+            "replies" : reply_list
+        })
+
         return make_response(jsonify(response_body), 200)
     
     def patch(self, id):
@@ -253,6 +261,17 @@ class Replies(Resource):
             return make_response(jsonify(response_body), 400)
         
 api.add_resource(Replies, '/replies')
+
+class RepliesById(Resource)
+
+    def get(self, id):
+        reply = Reply.query.filter(Reply.id == id).first()
+        if not reply:
+            response_body = {'error': 'Reply not found.'}
+            return make_response(jsonify(response_body), 404)
+        response_body = reply.to_dict()
+
+        
 
 
 
