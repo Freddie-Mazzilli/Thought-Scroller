@@ -216,7 +216,21 @@ class CommentsById(Resource):
             response_body = {"errors": ["Validation Errors"]}
             return make_response(jsonify(response_body), 400)
         
+    def delete(self, id):
+        comment = Comment.query.filter(Comment.id == id).first()
+        if not comment:
+            response_body = {'error': "Comment not found."}
+            return make_response(jsonify(response_body), 404)
+        db.session.delete(comment)
+        db.session.commit()
+        response_body = {}
+        return make_response(jsonify(response_body), 204)
+    
+api.add_resource(CommentsById, '/comments/<int:id>')
+
+
         
+
 
 
 
