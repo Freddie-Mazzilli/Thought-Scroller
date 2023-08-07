@@ -42,7 +42,8 @@ class Users(Resource):
         for user in users:
             relationship = {
                 'posts' : user.post.to_dict(),
-                'comments': user.comment.to_dict()
+                'comments': user.comment.to_dict(),
+                'replies': user.reply.to_dict()
             }
             response_body.append(relationship)
         return make_response(jsonify(response_body), 200)
@@ -183,6 +184,18 @@ class Comments(Resource):
             return make_response(jsonify(response_body), 400)
         
 api.add_resource(Comments, '/comments')
+
+class CommentsById(Resource):
+
+    def get(self, id):
+        comment = Comment.query.filter(Comment.id == id).first()
+        if not comment:
+            response_body = {'error': "Comment not found."}
+            return make_response(jsonify(response_body), 404)
+        response_body = comment.to_dict()
+
+        
+
             
 
         
