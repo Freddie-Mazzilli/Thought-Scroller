@@ -228,6 +228,17 @@ class CommentsById(Resource):
     
 api.add_resource(CommentsById, '/comments/<int:id>')
 
+class Replies(Resource):
+
+    def get(self):
+        replies = Reply.query.all()
+        response_body =  []
+        for reply in replies:
+            response_body.append(reply.to_dict())
+        return make_response(jsonify(response_body), 200)
+
+
+
 
         
 
