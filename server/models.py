@@ -17,6 +17,7 @@ class User(db.Model, SerializerMixin):
     username = db.Column(db.String(100), nullable=False, unique=True)
     email = db.Column(db.String(120), nullable=False, unique=True)
     password_hash = db.Column(db.String(120), nullable=False)
+    user_post_count = db.Column(db.Integer, default=0)
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
 
     # Relationships
