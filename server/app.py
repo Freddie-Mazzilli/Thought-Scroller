@@ -262,7 +262,7 @@ class Replies(Resource):
         
 api.add_resource(Replies, '/replies')
 
-class RepliesById(Resource)
+class RepliesById(Resource):
 
     def get(self, id):
         reply = Reply.query.filter(Reply.id == id).first()
@@ -288,6 +288,15 @@ class RepliesById(Resource)
             response_body = {'errors': ['Validation Errors']}
             return make_response(jsonify(response_body), 400)
         
+    def delete(self, id):
+        reply = Reply.query.filter(Reply.id == id).first()
+        if not reply:
+            response_body = {'error': 'Reply not found'}
+            return make_response(jsonify(response_body), 404)
+        db.session.delete(reply)
+        db.session.commit()
+        response_body = {}
+        return make_response(jsonify(response_body), 204)
         
 
 
