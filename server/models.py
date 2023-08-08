@@ -14,19 +14,15 @@ class User(db.Model, SerializerMixin):
 
     # Fields
     id = db.Column(db.Integer, primary_key=True)
-    post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
-    comment_id = db.Column(db.Integer, db.ForeignKey('comments.id'))
-    reply_id = db.Column(db.Integer, db.ForeignKey('replies.id'))
-
     username = db.Column(db.String(100), nullable=False, unique=True)
     email = db.Column(db.String(120), nullable=False, unique=True)
     password_hash = db.Column(db.String(120), nullable=False)
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
 
     # Relationships
-    posts = db.relationship("Post", back_populates="user")
-    comments = db.relationship("Comment", back_populates="user")
-    replies = db.relationship("Reply", back_populates="user")
+    posts = db.relationship("Post", back_populates="user", cascade="all, delete-orphan")
+    comments = db.relationship("Comment", back_populates="user", cascade="all, delete-orphan")
+    replies = db.relationship("Reply", back_populates="user", cascade="all, delete-orphan")
 
     # Serializer
     serialize_rules = ('-posts', '-comments', 'replies')
@@ -46,6 +42,7 @@ class Post(db.Model, SerializerMixin):
 
     # Fields
     id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
 
     title = db.Column(db.String, nullable=False)
     content = db.Column(db.String, nullable=False)
@@ -53,7 +50,7 @@ class Post(db.Model, SerializerMixin):
     comment_count = db.Column(db.Integer, default=0)
 
     # Relationships 
-    users = db.relationship("User", back_populates="posts", cascade="all, delete-orphan")
+    users = db.relationship("User", back_populates="posts")
     comments = db.relationship("Comment", back_populates="posts")
 
     # Serializer
@@ -65,12 +62,13 @@ class Comment(db.Model, SerializerMixin):
     # Fields
     id = db.Column(db.Integer, primary_key=True)
     post_id = db.Column(db.Integer, db.ForeignKey("posts.id"), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
 
     content = db.Column(db.String, nullable=False)
     vote_count = db.Column(db.Integer, default=1)
     
     # Relationships 
-    users = db.relationship("User", back_populates="comments", cascade="all, delete-orphan")
+    users = db.relationship("User", back_populates="comments")
     posts = db.relationship("Post", back_populates="comments", cascade="all, delete-orphan")
     replies = db.relationship("Reply", back_populates="comments")
 
@@ -79,13 +77,14 @@ class Reply(db.Model, SerializerMixin):
     
     # Fields
     id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     comment_id = db.Column(db.Integer, db.ForeignKey("comments.id"), nullable=False)
 
     content = db.Column(db.String, nullable=False)
     vote_count = db.Column(db.Integer, default=1)
 
     # Relationships
-    users = db.relationship("User", back_populates="replies", cascade="all, delete-orphan") 
+    users = db.relationship("User", back_populates="replies") 
     comments = db.relationship("Comment", back_populates="replies", cascade="all, delete-orphan")
     
     

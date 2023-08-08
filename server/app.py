@@ -297,10 +297,9 @@ class RepliesById(Resource):
         db.session.commit()
         response_body = {}
         return make_response(jsonify(response_body), 204)
+    
+api.add_resource(RepliesById, '/replies/<int:id>')
         
-
-
-
 
 #Dont Forget to fix the PATCH for IDS in Tables Penn Reference
 
