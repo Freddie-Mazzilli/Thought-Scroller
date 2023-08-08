@@ -2,12 +2,13 @@
 
 import ipdb
 
-from flask import Flask, make_response, jsonify, request, session
+from flask import Flask, make_response, jsonify, request, session, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
 from flask_restful import Api, Resource
 from flask_cors import CORS
+from functools import wraps
 
 
 from models import db, User, Post, Comment, Reply
@@ -33,6 +34,14 @@ def get_current_user():
 
 def logged_in():
     return bool(get_current_user())
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if session.get('user_id') is None:
+            return redirect('/login')
+        return f(*args, **kwargs)
+    return decorated_function
 
 class Users(Resource):
 
@@ -96,6 +105,7 @@ class Posts(Resource):
             response_body.append(post.to_dict())
         return make_response(jsonify(response_body), 200)
     
+    @login_required
     def post(self):
 
         user_id = session["user_id"]
@@ -143,6 +153,7 @@ class PostsById(Resource):
 
         return make_response(jsonify(response_body), 200)
     
+    @login_required
     def patch(self, id):
         post = Post.query.filter(Post.id == id).first()
         if not post:
@@ -157,7 +168,8 @@ class PostsById(Resource):
         except ValueError:
             response_body = {'errors': ['Validation Errors']}
             return make_response(jsonify(response_body), 400)
-        
+    
+    @login_required
     def delete(self, id):
         post = Post.query.filter(Post.id == id).first()
         if not post:
@@ -179,6 +191,7 @@ class Comments(Resource):
             response_body.append(comment.to_dict())
         return make_response(jsonify(response_body), 200)
     
+    @login_required
     def post(self):
         
         user_id = session["user_id"]
@@ -225,6 +238,7 @@ class CommentsById(Resource):
 
         return make_response(jsonify(response_body), 200)
     
+    @login_required
     def patch(self, id):
         comment = Comment.query.filter(Comment.id == id).first()
         if not comment:
@@ -239,7 +253,8 @@ class CommentsById(Resource):
         except ValueError:
             response_body = {"errors": ["Validation Errors"]}
             return make_response(jsonify(response_body), 400)
-        
+
+    @login_required    
     def delete(self, id):
         comment = Comment.query.filter(Comment.id == id).first()
         if not comment:
@@ -261,6 +276,7 @@ class Replies(Resource):
             response_body.append(reply.to_dict())
         return make_response(jsonify(response_body), 200)
     
+    @login_required
     def post(self):
         
         user_id = session["user_id"]
@@ -298,6 +314,7 @@ class RepliesById(Resource):
 
         return make_response(jsonify(response_body), 200)
     
+    @login_required
     def patch(self, id):
         reply = Reply.query.filter(Reply.id == id).first()
         if not reply:
@@ -312,7 +329,8 @@ class RepliesById(Resource):
         except ValueError:
             response_body = {'errors': ['Validation Errors']}
             return make_response(jsonify(response_body), 400)
-        
+
+    @login_required  
     def delete(self, id):
         reply = Reply.query.filter(Reply.id == id).first()
         if not reply:
@@ -324,9 +342,7 @@ class RepliesById(Resource):
         return make_response(jsonify(response_body), 204)
     
 api.add_resource(RepliesById, '/replies/<int:id>')
-        
 
-#Dont Forget to fix the PATCH for IDS in Tables Penn Reference
 
         
 
