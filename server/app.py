@@ -272,6 +272,28 @@ class RepliesById(Resource)
         response_body = reply.to_dict()
 
         return make_response(jsonify(response_body), 200)
+    
+    def patch(self, id):
+        reply = Reply.query.filter(Reply.id == id).first()
+        if not reply:
+            response_body = {'error': "Reply not found."}
+            return make_response(jsonify(response_body), 404)
+        try:
+            data = request.get_json()
+            for key in data:
+                setattr(reply, key, data.get(key))
+            db.session.commit()
+            return make_response(jsonify(reply.to_dict()), 202)
+        except ValueError:
+            response_body = {'errors': ['Validation Errors']}
+            return make_response(jsonify(response_body), 400)
+        
+        
+
+
+
+
+#Dont Forget to fix the PATCH for IDS in Tables Penn Reference
 
         
 
