@@ -273,6 +273,7 @@ class Replies(Resource):
             data = request.get_json()
             new_reply = Reply(
                 user_id = user.id,
+                comment_id = data.get('comment_id'),
                 content = data.get('content'),
                 vote_count = data.get('vote_count')
             )
