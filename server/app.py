@@ -343,7 +343,7 @@ class RepliesById(Resource):
     
 api.add_resource(RepliesById, '/replies/<int:id>')
 
-
+#fix API resources for CLASSES posts, comments, replies
         
 
 

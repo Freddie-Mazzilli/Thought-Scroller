@@ -1,6 +1,12 @@
 import './index.css';
+import {useState, useEffect} from 'react';
 
 function App() {
+
+  const [currentUser, setCurrentUser] = useState(null)
+  const [posts, setPosts] = useState([])
+  const [comments, setComments] = useState([])
+  const [replies, setReplies] = useState([])
   
     return (
     <div className="container mx-auto bg-gray-200 rounded-xl shadow border p-8 m-10">
