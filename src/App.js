@@ -7,6 +7,16 @@ function App() {
   const [posts, setPosts] = useState([])
   const [comments, setComments] = useState([])
   const [replies, setReplies] = useState([])
+
+  useEffect(() => {
+    fetch('/current_session')
+    .then(response => {
+      if (response.ok) {
+        response.json()
+        .then(user => setCurrentUser(user))
+      }
+    })
+  }, [])
   
     return (
     <div className="container mx-auto bg-gray-200 rounded-xl shadow border p-8 m-10">
