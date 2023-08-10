@@ -1,7 +1,10 @@
 import './index.css';
 import {useState, useEffect} from 'react';
+import {Route, Switch, useHistory} from "react-router-dom";
 
 function App() {
+
+  const history = useHistory()
 
   const [currentUser, setCurrentUser] = useState(null)
   const [posts, setPosts] = useState([])
@@ -31,7 +34,25 @@ function App() {
       if (response.ok) {
         response.json()
         .then(user => setCurrentUser(user))
-        history.push('/user_page')
+        history.push('/user_profile')
+      }
+    })
+  }
+
+  function attemptSignup(userInfo) {
+    fetch('/users', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accepts": "application/json"
+      },
+      body: JSON.stringify(userInfo)
+    })
+    .then(response => {
+      if (response.ok) {
+        response.json()
+        .then(user => setCurrentUser(user))
+        history.push('/user_profile')
       }
     })
   }
