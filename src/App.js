@@ -2,6 +2,8 @@ import './index.css';
 import {useState, useEffect} from 'react';
 import {Route, Switch, useHistory} from "react-router-dom";
 
+import Nav from './Nav';
+
 function App() {
 
   const history = useHistory()
