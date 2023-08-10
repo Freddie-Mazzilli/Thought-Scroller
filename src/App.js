@@ -1,12 +1,12 @@
 import './index.css';
 import {useState, useEffect} from 'react';
-import {Route, Switch, useHistory} from "react-router-dom";
+import {Route, Switch, useNavigate} from "react-router-dom";
 
 import Nav from './Nav';
 
 function App() {
 
-  const history = useHistory()
+  const navigate = useNavigate()
 
   const [currentUser, setCurrentUser] = useState(null)
   const [posts, setPosts] = useState([])
@@ -36,7 +36,7 @@ function App() {
       if (response.ok) {
         response.json()
         .then(user => setCurrentUser(user))
-        history.push('/user_profile')
+        navigate('/user_profile')
       }
     })
   }
@@ -54,7 +54,7 @@ function App() {
       if (response.ok) {
         response.json()
         .then(user => setCurrentUser(user))
-        history.push('/user_profile')
+        navigate('/user_profile')
       }
     })
   }
@@ -62,7 +62,7 @@ function App() {
   function logout() {
     setCurrentUser(null)
     fetch('/logout', { method:"DELETE"})
-    history.push('/')
+    navigate('/')
   }
 
     return (
