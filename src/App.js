@@ -67,7 +67,7 @@ function App() {
 
     return (
     <div>
-      <div>
+      <div className="md:border-4 border-blue-700 w-full bg-black">
         <Nav currentUser={currentUser} logout={logout}/>
       </div>
       <div className="container mx-auto bg-gray-200 rounded-xl shadow border p-8 m-10">
