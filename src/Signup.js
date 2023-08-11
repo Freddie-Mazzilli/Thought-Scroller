@@ -8,7 +8,10 @@ function Signup({attemptSignup}) {
     const handleChangeUsername = event => setUsername(event.target.value)
     const handleChangePassword = event => setPassword(event.target.value)
 
-    
+    function handleSubmit(event){
+        event.preventDefault()
+        attemptSignup({username, password})
+    }    
 
 
     return (
