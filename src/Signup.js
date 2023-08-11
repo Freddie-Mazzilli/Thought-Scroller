@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 
-function Login({attemptLogin}) {
+function Signup({attemptSignup}) {
+
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
+
+    const handleChangeUsername = event => setUsername(event.target.value)
+    const handleChangePassword = event => setPassword(event.target.value)
+
+    
 
 
     return (
