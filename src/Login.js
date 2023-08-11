@@ -9,6 +9,11 @@ function Login({attemptLogin}) {
     const handleChangeUsername = event => setUsername(event.target.value)
     const handleChangePassword = event => setPassword(event.target.value)
 
+    function handleSubmit(event){
+        event.preventDefault()
+        attemptLogin({username, password})
+    }
+
     return (
         <div>
             SHEESH!
