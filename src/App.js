@@ -1,8 +1,9 @@
 import './index.css';
 import {useState, useEffect} from 'react';
-import {Route, Switch, useNavigate} from "react-router-dom";
+import {Route, BrowserRouter, Routes, useNavigate} from "react-router-dom";
 
 import Nav from './Nav';
+import Login from './Login';
 
 function App() {
 
@@ -70,10 +71,8 @@ function App() {
       <div className="md:border-4 border-blue-700 w-full bg-black">
         <Nav currentUser={currentUser} logout={logout}/>
       </div>
-        <div className="container mx-auto bg-gray-200 rounded-xl shadow border p-8 m-10">
-          <p className="text-3xl text-gray-700 font-bold mb-5 flex justify-center"> -Thought Scroller- </p>
-          <p className="text-gray-500 text-lg flex justify-center"> A glimpse into the human enigma. </p>
-        </div>
+        <Routes>
+        </Routes>
     </div>
       );
     }
