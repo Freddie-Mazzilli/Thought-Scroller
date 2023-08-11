@@ -26,9 +26,9 @@ function Login({attemptLogin}) {
                 })}>
                     <div className="bg-blue-500">
                         <label className="text-white"> Username </label>
-                        <input className="text-white" type="text" onChange={handleChangeUsername} value={username} placeholder="Username"/>
+                        <input className="text-black" type="text" onChange={handleChangeUsername} value={username} placeholder="Username"/>
                         <label className="text-white"> Password </label>
-                        <input className="text-white" type="text" onChange={handleChangePassword} value={password} placeholder="Password"/> 
+                        <input className="text-black" type="text" onChange={handleChangePassword} value={password} placeholder="Password"/> 
                         <button className="text-white" type="submit"> Login </button>
                     </div>
                 </form>}
