@@ -20,4 +20,4 @@ function Signup({attemptSignup}) {
     );
 }
 
-export default Login;
+export default Signup;
