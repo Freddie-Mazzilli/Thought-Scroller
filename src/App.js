@@ -6,6 +6,7 @@ import Nav from './Nav';
 import Login from './Login';
 import Signup from './Signup';
 import Home from './Home';
+import UserProfile from './UserProfile';
 
 function App() {
 
@@ -77,6 +78,7 @@ function App() {
           <Route path="/" element={<Home/>}/>
           { !currentUser ? <Route path="/login" element={<Login attemptLogin={attemptLogin}/>} /> : null }
           { !currentUser ? <Route path="/signup" element={<Signup attemptSignup={attemptSignup}/>} /> : null }
+          { currentUser ? <Route path="/user_profile" element={<UserProfile/>}/> : null } 
         </Routes>
     </div>
       );
