@@ -5,6 +5,7 @@ import {Route, Routes, useNavigate} from "react-router-dom";
 import Nav from './Nav';
 import Login from './Login';
 import Signup from './Signup';
+import Home from './Home';
 
 function App() {
 
@@ -73,6 +74,7 @@ function App() {
         <Nav currentUser={currentUser} logout={logout}/>
       </div>
         <Routes>
+          <Route path="/" element={<Home/>}>
           { !currentUser ? <Route path="/login" element={<Login attemptLogin={attemptLogin}/>} /> : null }
           { !currentUser ? <Route path="/signup" element={<Signup attemptSignup={attemptSignup}/>} /> : null }
         </Routes>
