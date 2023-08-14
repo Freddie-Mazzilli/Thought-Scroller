@@ -16,6 +16,19 @@ function Signup({attemptSignup}) {
 
     return (
         <div>
+            <div>
+                <h2 className="text-white">ThoughtScroller</h2>
+            </div>
+                <h6 className="text-white">Signup Here</h6>
+                <form onSubmit={handleSubmit}>
+                    <div className="bg-blue-500">
+                        <label className="text-white">Username</label>
+                        <input className="text-black" type="text" onChange={handleChangeUsername} value={username} placeholder="Username"/>
+                        <label className="text-white">Password</label>
+                        <input className="text-black" type="text" onChange={handleChangePassword} value={password} placeholder="Password"/>
+                        <button type="submit">Signup</button>
+                    </div>
+                </form>
         </div>
     );
 }
