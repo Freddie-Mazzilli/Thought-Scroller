@@ -73,10 +73,8 @@ function App() {
         <Nav currentUser={currentUser} logout={logout}/>
       </div>
         <Routes>
-          { !currentUser ? <Route exact path='/login' element={<Login attemptLogin={attemptLogin}/>} /> : null }
-        </Routes>
-        <Routes>
-          { !currentUser ? <Route exact path='/signup' element={<Signup attemptSignup={attemptSignup}/>} /> : null }
+          { !currentUser ? <Route path="/login" element={<Login attemptLogin={attemptLogin}/>} /> : null }
+          { !currentUser ? <Route path="/signup" element={<Signup attemptSignup={attemptSignup}/>} /> : null }
         </Routes>
     </div>
       );

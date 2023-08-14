@@ -1,8 +1,8 @@
-"""Reworked Relationships
+"""Checking Status
 
-Revision ID: 64f8fe0eee82
+Revision ID: b99950afdf9d
 Revises: 
-Create Date: 2023-08-08 13:09:16.771347
+Create Date: 2023-08-14 14:05:57.805126
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '64f8fe0eee82'
+revision = 'b99950afdf9d'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -21,12 +21,10 @@ def upgrade():
     op.create_table('users',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('username', sa.String(length=100), nullable=False),
-    sa.Column('email', sa.String(length=120), nullable=False),
     sa.Column('password_hash', sa.String(length=120), nullable=False),
     sa.Column('user_post_count', sa.Integer(), nullable=True),
     sa.Column('date_created', sa.DateTime(), nullable=True),
     sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
     )
     op.create_table('posts',
