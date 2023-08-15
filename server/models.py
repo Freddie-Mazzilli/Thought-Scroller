@@ -50,11 +50,11 @@ class Post(db.Model, SerializerMixin):
     comment_count = db.Column(db.Integer, default=0)
 
     # Relationships 
-    users = db.relationship("User", back_populates="posts")
-    comments = db.relationship("Comment", back_populates="posts")
+    user = db.relationship("User", back_populates="posts")
+    comments = db.relationship("Comment", back_populates="post")
 
     # Serializer
-    serialize_rules = ("-users",)
+    serialize_rules = ("-user", "-comments")
 
 class Comment(db.Model, SerializerMixin):
     __tablename__ = "comments"
@@ -68,9 +68,12 @@ class Comment(db.Model, SerializerMixin):
     vote_count = db.Column(db.Integer, default=1)
     
     # Relationships 
-    users = db.relationship("User", back_populates="comments")
-    posts = db.relationship("Post", back_populates="comments", cascade="all, delete-orphan")
-    replies = db.relationship("Reply", back_populates="comments")
+    user = db.relationship("User", back_populates="comments")
+    post = db.relationship("Post", back_populates="comments")
+    replies = db.relationship("Reply", back_populates="comment")
+
+    # Serializer
+    serialize_rules = ("-user", "-post", "-replies")
 
 class Reply(db.Model, SerializerMixin):
     __tablename__ = "replies"
@@ -84,13 +87,8 @@ class Reply(db.Model, SerializerMixin):
     vote_count = db.Column(db.Integer, default=1)
 
     # Relationships
-    users = db.relationship("User", back_populates="replies") 
-    comments = db.relationship("Comment", back_populates="replies", cascade="all, delete-orphan")
-    
-    
+    user = db.relationship("User", back_populates="replies") 
+    comment = db.relationship("Comment", back_populates="replies")
 
-
-
-
-    
-
+    # Serializer
+    serialize_rules = ("-user", "-comment")

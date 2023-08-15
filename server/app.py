@@ -50,9 +50,9 @@ class Users(Resource):
         response_body = []
         for user in users:
             relationship = {
-                'posts' : user.post.to_dict(),
-                'comments': user.comment.to_dict(),
-                'replies': user.reply.to_dict()
+                'posts' : [post.to_dict() for post in user.posts],
+                'comments':[comment.to_dict() for comment in user.comments],
+                'replies': [reply.to_dict() for reply in user.replies]
             }
             response_body.append(relationship)
         return make_response(jsonify(response_body), 200)
