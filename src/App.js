@@ -8,6 +8,7 @@ import Login from './Login';
 import Signup from './Signup';
 import Home from './Home';
 import UserProfile from './UserProfile';
+import CreatePost from './CreatePost';
 
 function App() {
 
@@ -79,7 +80,8 @@ function App() {
           <Route path="/" element={<Home/>}/>
           { !currentUser ? <Route path="/login" element={<Login attemptLogin={attemptLogin}/>} /> : null }
           { !currentUser ? <Route path="/signup" element={<Signup attemptSignup={attemptSignup}/>} /> : null }
-          { currentUser ? <Route path="/user_profile" element={<UserProfile currentUser={currentUser}/>}/> : null } 
+          { currentUser ? <Route path="/user_profile" element={<UserProfile currentUser={currentUser}/>}/> : null }
+          { currentUser ? <Route path="/create_post" element={<CreatePost/>}/> : null} 
         </Routes>
         <div className='md:border-4 border-blue-700 w-full bg-black fixed bottom-0'>
           <ExplorerNav currentUser={currentUser}/>
