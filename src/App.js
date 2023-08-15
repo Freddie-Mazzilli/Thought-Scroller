@@ -36,6 +36,21 @@ function App() {
     })
   }, [])
 
+  function addPost(event){
+    event.preventDefault()
+
+    fetch("http://127.0.0.1:7000/posts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(newPost)
+    })
+    .then(response => response.json())
+    .then(newPost => setPosts([...posts, newPost]))
+  }
+
   function attemptLogin(userInfo) {
     fetch('/login',  {
       method: "POST",
