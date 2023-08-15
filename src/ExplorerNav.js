@@ -1,12 +1,14 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-function ExplorerNav() {
+function ExplorerNav({currentUser}) {
 
     return (
-        <div>
-            Base
-        </div>
+        <ul className="text-white justify-evenly flex">
+             <NavLink to="/"> Home </NavLink>
+             { currentUser ? <NavLink to="/create_post"> Create </NavLink> : null }
+             <NavLink to="/communities"> Communities </NavLink>             
+        </ul>
     )
 }
 
