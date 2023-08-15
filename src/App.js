@@ -19,6 +19,13 @@ function App() {
   const [comments, setComments] = useState([])
   const [replies, setReplies] = useState([])
 
+
+  useEffect(() => {
+    fetch('http://127.0.0.1:7000/posts')
+      .then(response => response.json())
+      .then(postsData => setPosts(postsData))
+  }, [])
+  
   useEffect(() => {
     fetch('/current_session')
     .then(response => {
