@@ -80,6 +80,9 @@ function App() {
           { !currentUser ? <Route path="/signup" element={<Signup attemptSignup={attemptSignup}/>} /> : null }
           { currentUser ? <Route path="/user_profile" element={<UserProfile currentUser={currentUser}/>}/> : null } 
         </Routes>
+        <div className='md:border-4 border-blue-700 w-full bg-black'>
+            
+        </div>
     </div>
       );
     }
