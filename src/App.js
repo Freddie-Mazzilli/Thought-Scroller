@@ -3,6 +3,7 @@ import {useState, useEffect} from 'react';
 import {Route, Routes, useNavigate} from "react-router-dom";
 
 import Nav from './Nav';
+import ExplorerNav from './ExplorerNav';
 import Login from './Login';
 import Signup from './Signup';
 import Home from './Home';
@@ -70,7 +71,7 @@ function App() {
   }
 
     return (
-    <div className="bg-black h-full w-full">
+    <div className="bg-black flex flex-col h-screen w-screen">
       <div className="md:border-4 border-blue-700 w-full bg-black">
         <Nav currentUser={currentUser} logout={logout}/>
       </div>
@@ -80,8 +81,8 @@ function App() {
           { !currentUser ? <Route path="/signup" element={<Signup attemptSignup={attemptSignup}/>} /> : null }
           { currentUser ? <Route path="/user_profile" element={<UserProfile currentUser={currentUser}/>}/> : null } 
         </Routes>
-        <div className='md:border-4 border-blue-700 w-full bg-black'>
-            
+        <div className='md:border-4 border-blue-700 w-full bg-black fixed bottom-0'>
+          <ExplorerNav currentUser={currentUser}/>
         </div>
     </div>
       );
