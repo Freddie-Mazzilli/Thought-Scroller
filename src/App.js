@@ -78,7 +78,7 @@ function App() {
           <Route path="/" element={<Home/>}/>
           { !currentUser ? <Route path="/login" element={<Login attemptLogin={attemptLogin}/>} /> : null }
           { !currentUser ? <Route path="/signup" element={<Signup attemptSignup={attemptSignup}/>} /> : null }
-          { currentUser ? <Route path="/user_profile" element={<UserProfile/>}/> : null } 
+          { currentUser ? <Route path="/user_profile" element={<UserProfile currentUser={currentUser}/>}/> : null } 
         </Routes>
     </div>
       );

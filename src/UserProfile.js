@@ -1,9 +1,10 @@
 import React from "react";
 
-function UserProfile() {
+function UserProfile({currentUser}) {
 
     return (
-        <div>
+        <div className="bg-gray-400">
+            <span> Welcome {currentUser.username}! </span>
             <h6>This Is Where The Details Of A User Would Go</h6>
         </div>
     )
