@@ -19,6 +19,10 @@ function App() {
   const [comments, setComments] = useState([])
   const [replies, setReplies] = useState([])
 
+  const [newPost, setNewPost] = useState({
+    "user_id": currentUser.id
+  })
+
 
   useEffect(() => {
     fetch('http://127.0.0.1:7000/posts')
@@ -36,7 +40,11 @@ function App() {
     })
   }, [])
 
-  function addPost(event){
+  function updateNewPost(event){
+    setNewPost({...newPost, [event.target.name]: event.target.value})
+  }
+
+  function addNewPost(event){
     event.preventDefault()
 
     fetch("http://127.0.0.1:7000/posts", {
@@ -94,8 +102,8 @@ function App() {
   }
 
     return (
-    <div className="bg-black flex flex-col h-screen w-screen">
-      <div className="md:border-4 border-blue-700 w-full bg-black">
+    <div className="bg-black flex flex-col h-screen justify-evenly">
+      <div className="md:border-4 border-blue-700 w-full bg-black fixed top-0">
         <Nav currentUser={currentUser} logout={logout}/>
       </div>
         <Routes>
@@ -103,7 +111,7 @@ function App() {
           { !currentUser ? <Route path="/login" element={<Login attemptLogin={attemptLogin}/>} /> : null }
           { !currentUser ? <Route path="/signup" element={<Signup attemptSignup={attemptSignup}/>} /> : null }
           { currentUser ? <Route path="/user_profile" element={<UserProfile currentUser={currentUser}/>}/> : null }
-          { currentUser ? <Route path="/create_post" element={<CreatePost/>}/> : null} 
+          { currentUser ? <Route path="/create_post" element={<CreatePost addNewPost={addNewPost} updateNewPost={updateNewPost}/>}/> : null} 
         </Routes>
         <div className='md:border-4 border-blue-700 w-full bg-black fixed bottom-0'>
           <ExplorerNav currentUser={currentUser}/>

@@ -133,23 +133,15 @@ class Posts(Resource):
 
 api.add_resource(Posts, '/posts')
 
-class PostsById(Resource):
+class PostsByUser(Resource):
 
-    def get(self, id):
-        post = Post.query.filter(Post.id == id).first()
-        if not post:
-            response_body = {"error": "Post not found."}
+    def get(self, username):
+
+        user = User.query.filter_by(username = username).first()
+        if not user:
+            response_body = {"error": "User and their posts not found."}
             return make_response(jsonify(response_body), 404)
-        response_body = post.to_dict()
-
-        comment_list = []
-        for comment in post.comments:
-            comment_dict = comment.to_dict()
-            comment_list.append(comment_dict)
-        
-        response_body.update({
-            "comments": comment_list
-        })
+        response_body = [post.to_dict() for post in user.posts]
 
         return make_response(jsonify(response_body), 200)
     
