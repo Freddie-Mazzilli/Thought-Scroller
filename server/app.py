@@ -172,7 +172,7 @@ class PostsByUser(Resource):
         response_body = {}
         return make_response(jsonify(response_body), 204)
     
-api.add_resource(PostsById, '/posts/<int:id>')
+api.add_resource(PostsByUser, '/<string:username>/posts/<int:id>')
 
 class Comments(Resource):
 

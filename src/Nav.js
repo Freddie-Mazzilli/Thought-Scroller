@@ -7,7 +7,7 @@ function Nav({currentUser, logout}) {
         <ul className="text-white justify-evenly flex">
             { !currentUser ? <NavLink to="/login"> Login </NavLink> : null }
             { !currentUser ? <NavLink to="/signup"> Signup </NavLink> : null}
-            { currentUser ? <NavLink to ="/user_profile"> Profile </NavLink> : null }
+            { currentUser ? <NavLink to={`/${currentUser.username}`}> Profile </NavLink> : null }
             { currentUser ? <button onClick={logout}> Log Out </button> : null }
         </ul>
     );

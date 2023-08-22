@@ -19,9 +19,7 @@ function App() {
   const [comments, setComments] = useState([])
   const [replies, setReplies] = useState([])
 
-  const [newPost, setNewPost] = useState({
-    "user_id": currentUser.id
-  })
+  const [newPost, setNewPost] = useState({})
 
 
   useEffect(() => {
@@ -72,7 +70,7 @@ function App() {
       if (response.ok) {
         response.json()
         .then(user => setCurrentUser(user))
-        navigate('/user_profile')
+        navigate(`/${currentUser.username}`)
       }
     })
   }
@@ -90,7 +88,7 @@ function App() {
       if (response.ok) {
         response.json()
         .then(user => setCurrentUser(user))
-        navigate('/user_profile')
+        navigate(`/${currentUser.username}`)
       }
     })
   }
@@ -110,8 +108,8 @@ function App() {
           <Route path="/" element={<Home/>}/>
           { !currentUser ? <Route path="/login" element={<Login attemptLogin={attemptLogin}/>} /> : null }
           { !currentUser ? <Route path="/signup" element={<Signup attemptSignup={attemptSignup}/>} /> : null }
-          { currentUser ? <Route path="/user_profile" element={<UserProfile currentUser={currentUser}/>}/> : null }
-          { currentUser ? <Route path="/create_post" element={<CreatePost addNewPost={addNewPost} updateNewPost={updateNewPost}/>}/> : null} 
+          { currentUser ? <Route path={`/${currentUser.username}`} element={<UserProfile currentUser={currentUser}/>} /> : null }
+          { currentUser ? <Route path="/create_post" element={<CreatePost addNewPost={addNewPost} updateNewPost={updateNewPost}/>} /> : null} 
         </Routes>
         <div className='md:border-4 border-blue-700 w-full bg-black fixed bottom-0'>
           <ExplorerNav currentUser={currentUser}/>
