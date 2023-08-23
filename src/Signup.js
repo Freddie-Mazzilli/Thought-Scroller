@@ -25,7 +25,7 @@ function Signup({attemptSignup}) {
                         <label className="text-white">Username</label>
                         <input className="text-black" type="text" onChange={handleChangeUsername} value={username} placeholder="Username"/>
                         <label className="text-white">Password</label>
-                        <input className="text-black" type="text" onChange={handleChangePassword} value={password} placeholder="Password"/>
+                        <input className="text-black" type="password" onChange={handleChangePassword} value={password} placeholder="Password"/>
                         <button type="submit">Signup</button>
                     </div>
                 </form>

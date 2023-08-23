@@ -94,6 +94,7 @@ function App() {
         navigate('/')
       } else {
         console.log("Username already exists.")
+        alert("Username already exists.")
       }
     })
   }
