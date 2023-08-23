@@ -12,7 +12,8 @@ function Login({attemptLogin}) {
     const handleChangeUsername = event => setUsername(event.target.value)
     const handleChangePassword = event => setPassword(event.target.value)
 
-    function handleSubmit(){
+    function handleSubmit(event){
+        event.preventDefault()
         attemptLogin({username, password})
     }
 

@@ -71,6 +71,8 @@ function App() {
         res.json()
         .then(user => setCurrentUser(user))
         navigate('/')
+      } else {
+        console.log("Invalid Username or Password.")
       }
     })
   }
@@ -89,6 +91,8 @@ function App() {
         res.json()
         .then(user => setCurrentUser(user))
         navigate('/')
+      } else {
+        console.log("Username already exists.")
       }
     })
   }
