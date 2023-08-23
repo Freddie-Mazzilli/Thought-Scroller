@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Login({attemptLogin}) {
 
@@ -22,7 +22,7 @@ function Login({attemptLogin}) {
                 <h2 className="text-white">Thought-Scroller</h2>
             </div>
                 <h6 className="text-white">Login Here</h6>
-                {loginSuccessful ? navigate("/") :
+                {loginSuccessful ? <h1 className="text-white">This ain't right</h1>:
                 <form onSubmit={(event => {handleSubmit(event)
                 setLoginSuccessful(loginSuccessful => !loginSuccessful)
                 })}>
