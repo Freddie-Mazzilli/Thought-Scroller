@@ -66,6 +66,12 @@ function App() {
       },
       body: JSON.stringify(userInfo)
     })
+    .then(res => {
+      if(res.ok){
+        res.json()
+        .then(user => setCurrentUser(user))
+      }
+    })
   }
 
   function attemptSignup(userInfo) {
@@ -76,6 +82,12 @@ function App() {
         "Accepts": "application/json"
       },
       body: JSON.stringify(userInfo)
+    })
+    .then(res => {
+      if(res.ok) {
+        res.json()
+        .then(user => setCurrentUser(user))
+      }
     })
   }
   

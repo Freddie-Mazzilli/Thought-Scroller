@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function Login({attemptLogin}) {
+
+    const navigate = useNavigate()
     
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -9,8 +12,7 @@ function Login({attemptLogin}) {
     const handleChangeUsername = event => setUsername(event.target.value)
     const handleChangePassword = event => setPassword(event.target.value)
 
-    function handleSubmit(event){
-        event.preventDefault()
+    function handleSubmit(){
         attemptLogin({username, password})
     }
 
@@ -20,7 +22,7 @@ function Login({attemptLogin}) {
                 <h2 className="text-white">Thought-Scroller</h2>
             </div>
                 <h6 className="text-white">Login Here</h6>
-                {loginSuccessful ? <h1 className="text-white">Invalid Username or Password</h1> :
+                {loginSuccessful ? navigate("/") :
                 <form onSubmit={(event => {handleSubmit(event)
                 setLoginSuccessful(loginSuccessful => !loginSuccessful)
                 })}>
