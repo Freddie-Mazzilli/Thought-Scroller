@@ -66,13 +66,6 @@ function App() {
       },
       body: JSON.stringify(userInfo)
     })
-    .then(response => {
-      if (response.ok) {
-        response.json()
-        .then(user => setCurrentUser(user))
-        navigate(`/${currentUser.username}`)
-      }
-    })
   }
 
   function attemptSignup(userInfo) {
@@ -83,13 +76,6 @@ function App() {
         "Accepts": "application/json"
       },
       body: JSON.stringify(userInfo)
-    })
-    .then(response => {
-      if (response.ok) {
-        response.json()
-        .then(user => setCurrentUser(user))
-        navigate(`/${currentUser.username}`)
-      }
     })
   }
   
