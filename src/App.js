@@ -73,6 +73,7 @@ function App() {
         navigate('/')
       } else {
         console.log("Invalid Username or Password.")
+        alert("Invalid Username or Password")
       }
     })
   }

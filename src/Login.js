@@ -1,9 +1,6 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 function Login({attemptLogin}) {
-
-    const navigate = useNavigate()
     
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -22,19 +19,16 @@ function Login({attemptLogin}) {
             <div>
                 <h2 className="text-white">Thought-Scroller</h2>
             </div>
-                <h6 className="text-white">Login Here</h6>
-                {loginSuccessful ? <h1 className="text-white">This ain't right</h1>:
-                <form onSubmit={(event => {handleSubmit(event)
-                setLoginSuccessful(loginSuccessful => !loginSuccessful)
-                })}>
+                <h1 className="text-white">Login Here</h1>
+                <form onSubmit={handleSubmit}>
                     <div className="bg-blue-500">
                         <label className="text-white"> Username </label>
                         <input className="text-black" type="text" onChange={handleChangeUsername} value={username} placeholder="Username"/>
                         <label className="text-white"> Password </label>
-                        <input className="text-black" type="text" onChange={handleChangePassword} value={password} placeholder="Password"/> 
+                        <input className="text-black" type="password" onChange={handleChangePassword} value={password} placeholder="Password"/> 
                         <button className="text-white" type="submit"> Login </button>
                     </div>
-                </form>}
+                </form>
         </div>
     );
 }
