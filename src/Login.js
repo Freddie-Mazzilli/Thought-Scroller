@@ -19,15 +19,19 @@ function Login({attemptLogin}) {
             <div>
                 <img className="ml-40" src={MisterBrain} alt="Brainy One"/>
             </div>
-            <div>
-                <h1 className="text-white">Login Here</h1>
+            <div className="w-3/4">
+                <h1 className="text-white text-center text-3xl font-extralight">Login Here</h1>
+                <br></br>
                 <form onSubmit={handleSubmit}>
-                    <div className="bg-blue-500">
+                    <div className="grid grid-rows-5">
                         <label className="text-white"> Username </label>
                         <input className="text-black" type="text" onChange={handleChangeUsername} value={username} placeholder="Username"/>
+                        <br></br>
                         <label className="text-white"> Password </label>
                         <input className="text-black" type="password" onChange={handleChangePassword} value={password} placeholder="Password"/> 
-                        <button className="text-white" type="submit"> Login </button>
+                        <br></br>
+                        <br></br>
+                        <button className="text-white md:border-4 border-blue-700 mx-60" type="submit"> Login </button>
                     </div>
                 </form>
             </div>
