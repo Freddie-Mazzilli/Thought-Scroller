@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import MisterBrain from "./assets/MisterBrain.png"
 
 function Login({attemptLogin}) {
     
@@ -14,10 +15,11 @@ function Login({attemptLogin}) {
     }
 
     return (
-        <div>
+        <div className="grid grid-cols-2 items-center">
             <div>
-                <h2 className="text-white">Thought-Scroller</h2>
+                <img className="ml-40" src={MisterBrain} alt="Brainy One"/>
             </div>
+            <div>
                 <h1 className="text-white">Login Here</h1>
                 <form onSubmit={handleSubmit}>
                     <div className="bg-blue-500">
@@ -28,6 +30,7 @@ function Login({attemptLogin}) {
                         <button className="text-white" type="submit"> Login </button>
                     </div>
                 </form>
+            </div>
         </div>
     );
 }
