@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-function Nav({currentUser, logout}) {
+function Header({currentUser, logout}) {
     
     return (    
         <ul className="text-white justify-evenly flex">
@@ -13,4 +13,4 @@ function Nav({currentUser, logout}) {
     );
 }
 
-export default Nav;
+export default Header;
