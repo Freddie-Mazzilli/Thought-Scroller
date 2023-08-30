@@ -45,13 +45,17 @@ function App() {
   function addNewPost(event){
     event.preventDefault()
 
+    const newUserPost = {...newPost, ["user_id"]: currentUser.id}
+
+    console.log(newUserPost)
+
     fetch("http://127.0.0.1:7000/posts", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Accepts": "application/json"
+        "Accept": "application/json"
       },
-      body: JSON.stringify(newPost)
+      body: JSON.stringify(newUserPost)
     })
     .then(response => response.json())
     .then(newPost => setPosts([...posts, newPost]))

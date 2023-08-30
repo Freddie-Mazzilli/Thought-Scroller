@@ -107,16 +107,10 @@ class Posts(Resource):
     
     def post(self):
 
-        user_id = session["user_id"]
-        user = User.query.filter_by(id=user_id).first()
-
-        if not user:
-            return jsonify({'message': 'User not found'}), 404
-
         try:
             data = request.get_json()
             new_post = Post(
-                user_id = user.id,
+                user_id = data.get('user_id'),
                 title = data.get('title'),
                 content = data.get('content'),
                 vote_count = data.get('vote_count'),
